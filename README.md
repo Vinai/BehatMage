@@ -60,7 +60,7 @@ First, add BehatMage to the list of dependencies inside your `composer.json` and
         "bin-dir": "bin"
     },
     "require": {
-            "php": ">=5.3.0"
+        "php": ">=5.3.0"
     },
     "require-dev": {
         "magetest/magento-behat-extension": "dev-develop"
@@ -474,12 +474,9 @@ As you can see Behat is providing to the developer, thanks to the BehatMage exte
     <global>
         <resources>
             <behatmage_catalog_setup>
-                <connection>
-                    <use>core_setup</use>
-                </connection>
                 <setup>
                     <module>BehatMage_Catalog</module>
-                    <class>BehatMage_Catalog_Model_Resource_Entity_Setup</class>
+                    <class>Mage_Catalog_Model_Resource_Setup</class>
                 </setup>
             </behatmage_catalog_setup>
         </resources>
@@ -505,19 +502,10 @@ As you can see Behat is providing to the developer, thanks to the BehatMage exte
 ```
 
 ```php
-# app/code/local/BehatMage/Catalog/Model/Resource/Entity/Setup.php
-
-<?php
-class BehatMage_Catalog_Model_Resource_Entity_Setup extends Mage_Eav_Model_Entity_Setup
-{
-
-}
-```
-
-```php
 # app/code/local/BehatMage/Catalog/data/behatmage_catalog_setup/data-install-0.1.0.php
 
 <?php
+/** @var Mage_Catalog_Model_Resource_Setup $this */
 $installer = $this;
 
 $installer->startSetup();
@@ -527,17 +515,10 @@ $installer->addAttribute('catalog_product', 'accepts_reviews', array(
     'input' => 'yesno',
     'type' => 'int',
     'label' => 'Accept Reviews',
-    'backend' => '',
     'default' => true,
-    'visible' => true,
-    'required' => true,
     'user_defined' => true,
-    'searchable' => false,
-    'filterable' => false,
-    'comparable' => false,
     'visible_on_front' => true,
     'visible_in_advanced_search' => false,
-    'is_html_allowed_on_front' => false,
     'global' => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_GLOBAL,
 ));
 
