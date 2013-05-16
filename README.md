@@ -20,7 +20,37 @@ Behat extension for Magento, providing Behat context with specific Magento requi
 
 BehatMage requires PHP 5.3.x or greater.
 
-### Method 1 (composer)
+### Install using composer
+
+For this document we assume the directory layout is as follows.
+```
+├── behat.yml
+├── bin
+│   ├── behat -> ../vendor/behat/behat/bin/behat
+│   └── composer.phar
+├── composer.json
+├── composer.lock
+├── htdocs
+│   ├── app
+│   ├── downloader
+│   ├── index.php
+│   ├── js
+│   ├── skin
+│   ├── var
+│   ├── ...
+└── vendor
+    ├── autoload.php
+    ├── behat
+    ├── magetest
+    ├── ...
+
+```
+Of course, any other layout is possible, too.
+Be aware of the following adjustments you will have to make though:
+* The behat.yml file needs to be in the directory where you call the behat script from.
+* The composer.json PSR-0 autoload path declarationwill need to be adjusted.
+* The default.paths.features setting in your behat.yml will need to be adjusted.
+
 
 First, add BehatMage to the list of dependencies inside your `composer.json` and be sure to register few paths for autoloading:
 
@@ -38,11 +68,11 @@ First, add BehatMage to the list of dependencies inside your `composer.json` and
     "autoload": {
         "psr-0": {
             "": [
-                "app",
-                "app/code/local",
-                "app/code/community",
-                "app/code/core",
-                "lib"
+                "htdocs/app",
+                "htdocs/app/code/local",
+                "htdocs/app/code/community",
+                "htdocs/app/code/core",
+                "htdocs/lib"
             ]
         }
     },
@@ -235,9 +265,12 @@ Behat, however, is not aware yet of the Magento domain and it's requiring us to 
 
 ```yml
 default:
-    extensions:
-        MageTest\MagentoExtension\Extension:
-            base_url: "http://project.development.local"
+  paths:
+    features: htdocs/features # This is only needed if we want the features directory inside the Magento installation
+
+  extensions:
+    MageTest\MagentoExtension\Extension:
+      base_url: "http://project.development.local"
 
 ```
 
