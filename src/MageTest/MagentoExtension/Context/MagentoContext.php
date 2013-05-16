@@ -56,6 +56,7 @@ class MagentoContext extends RawMinkContext implements MagentoAwareInterface
     public function iOpenAdminUri($uri)
     {
         $urlModel = new \Mage_Adminhtml_Model_Url();
+        // @TODO: (vinai) use admin router to find admin routes (no hard coding values)
         if (preg_match('@^/admin/(.*?)/(.*?)((/.*)?)$@', $uri, $m)) {
             $processedUri = "/admin/{$m[1]}/{$m[2]}/key/".$urlModel->getSecretKey($m[1], $m[2])."/{$m[3]}";
             $this->getSession()->visit($processedUri);
