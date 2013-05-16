@@ -265,22 +265,21 @@ Behat, however, is not aware yet of the Magento domain and it's requiring us to 
 
 ```yml
 default:
-  # If you want the features directory inside the Magento installation
-  # The default is to have the features directory inside the project directory
-  paths:
-    features: htdocs/features
-
   extensions:
     MageTest\MagentoExtension\Extension:
       base_url: "http://project.development.local"
 
+  # The default is to have the features directory inside the project directory
+  paths:
+  # If you want the features directory inside the Magento installation, set paths.features:
+    features: htdocs/features
 ```
 
 where we tell Behat which extension to load and what store we want to test. Well done so far, we now have to tell Behat that we want to use, just for clarity, a specific sub context for every actor that we have, in our example admin user. In order to do so we have to update the features/bootstrap/FeatureContext.php file as following:
 
 ```php
-# features/bootstrap/FeatureContext.php
 <?php
+# features/bootstrap/FeatureContext.php
 
 use Behat\Behat\Context\ClosuredContextInterface,
     Behat\Behat\Context\TranslatedContextInterface,
@@ -318,8 +317,8 @@ class FeatureContext extends BehatContext
 and create such a sub context as php class extending the MagentoContext provided by the BehatMage extension as following:
 
 ```php
-# features/bootstrap/AdminUserContext.php
 <?php
+# features/bootstrap/AdminUserContext.php
 
 use Behat\Behat\Exception\PendingException;
 use Behat\Gherkin\Node\TableNode;
@@ -394,8 +393,8 @@ As you can see the recommendation to add the following snippet disappeared
 this because BehatMage provides already the implementation of all those common steps generally needed and required to test Magento behaviours. So now let’s use Behat’s advice and add the following to the features/bootstrap/AdminUserContext.php file:
 
 ```php
-# features/bootstrap/AdminUserContext.php
 <?php
+# features/bootstrap/AdminUserContext.php
 
 use Behat\Behat\Exception\PendingException;
 use Behat\Gherkin\Node\TableNode;
@@ -503,9 +502,9 @@ As you can see Behat is providing to the developer, thanks to the BehatMage exte
 ```
 
 ```php
+<?php
 # app/code/local/BehatMage/Catalog/data/behatmage_catalog_setup/data-install-0.1.0.php
 
-<?php
 /** @var Mage_Catalog_Model_Resource_Setup $this */
 $installer = $this;
 
