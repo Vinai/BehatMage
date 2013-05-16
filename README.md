@@ -275,11 +275,17 @@ default:
     features: htdocs/features
 ```
 
-where we tell Behat which extension to load and what store we want to test. Well done so far, we now have to tell Behat that we want to use, just for clarity, a specific sub context for every actor that we have, in our example admin user. In order to do so we have to update the features/bootstrap/FeatureContext.php file as following:
+where we tell Behat which extension to load and what store we want to test. Also we are specifying that behat should look for the features inside the htdocs directory.  So we need to move our features there:
+
+```bash
+$ mv features htdocs/features
+```
+
+Well done so far, we now have to tell Behat that we want to use, just for clarity, a specific sub context for every actor that we have, in our example admin user. In order to do so we have to update the features/bootstrap/FeatureContext.php file as following:
 
 ```php
 <?php
-# features/bootstrap/FeatureContext.php
+# htdocs/features/bootstrap/FeatureContext.php
 
 use Behat\Behat\Context\ClosuredContextInterface,
     Behat\Behat\Context\TranslatedContextInterface,
@@ -318,7 +324,7 @@ and create such a sub context as php class extending the MagentoContext provided
 
 ```php
 <?php
-# features/bootstrap/AdminUserContext.php
+# htdocs/features/bootstrap/AdminUserContext.php
 
 use Behat\Behat\Exception\PendingException;
 use Behat\Gherkin\Node\TableNode;
@@ -390,11 +396,11 @@ As you can see the recommendation to add the following snippet disappeared
     }
 ```
 
-this because BehatMage provides already the implementation of all those common steps generally needed and required to test Magento behaviours. So now let’s use Behat’s advice and add the following to the features/bootstrap/AdminUserContext.php file:
+this because BehatMage provides already the implementation of all those common steps generally needed and required to test Magento behaviours. So now let’s use Behat’s advice and add the following to the htdocs/features/bootstrap/AdminUserContext.php file:
 
 ```php
 <?php
-# features/bootstrap/AdminUserContext.php
+# htdocs/features/bootstrap/AdminUserContext.php
 
 use Behat\Behat\Exception\PendingException;
 use Behat\Gherkin\Node\TableNode;
