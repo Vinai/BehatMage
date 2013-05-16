@@ -24,29 +24,29 @@ BehatMage requires PHP 5.3.x or greater.
 
 For this document we assume the directory layout is as follows.
 ```
+project-dir
 ├── behat.yml
 ├── bin
-│   ├── behat -> ../vendor/behat/behat/bin/behat
-│   └── composer.phar
+│   └── behat
 ├── composer.json
 ├── composer.lock
 ├── htdocs
 │   ├── app
 │   ├── downloader
+│   ├── features
 │   ├── index.php
 │   ├── js
 │   ├── skin
 │   ├── var
-│   ├── ...
+│   └── ...
 └── vendor
     ├── autoload.php
     ├── behat
     ├── magetest
-    ├── ...
-
+    └── ...
 ```
-Of course, any other layout is possible, too.
-Be aware of the following adjustments you will have to make though:
+We are assuming you will be keeping your behat features declarations inside the Magento installation, but will be calling the behat script from your project directory (one step above your Magento base dir).
+Of course, any other layout is possible, too. Just be aware of the following adjustments you will have to make:
 * The behat.yml file needs to be in the directory where you call the behat script from.
 * The composer.json PSR-0 autoload path declarationwill need to be adjusted.
 * The default.paths.features setting in your behat.yml will need to be adjusted.
@@ -94,7 +94,7 @@ Change directory to your project one and setup behat inside the directory:
 
 ```bash
 $ cd project
-$ behat --init
+$ bin/behat --init
 ```
 
 The behat --init will create a features/ directory with some basic things to get your started.
@@ -265,8 +265,10 @@ Behat, however, is not aware yet of the Magento domain and it's requiring us to 
 
 ```yml
 default:
+  # If you want the features directory inside the Magento installation
+  # The default is to have the features directory inside the project directory
   paths:
-    features: htdocs/features # This is only needed if we want the features directory inside the Magento installation
+    features: htdocs/features
 
   extensions:
     MageTest\MagentoExtension\Extension:
@@ -460,8 +462,8 @@ Feature: Admin User can manage review visibility
 As you can see Behat is providing to the developer, thanks to the BehatMage extension, meaningful and useful information about the next step to take in order to implement the required behaviour. So let's add the needed code to make the first requirement of our step pass. Create the following files based on the suggested code:
 
 ```xml
-<!-- app/code/local/BehatMage/Catalog/etc/config.xml -->
 <?xml version="1.0"?>
+<!-- app/code/local/BehatMage/Catalog/etc/config.xml -->
 <config>
     <modules>
         <BehatMage_Catalog>
@@ -485,8 +487,8 @@ As you can see Behat is providing to the developer, thanks to the BehatMage exte
 ```
 
 ```xml
-<!-- app/etc/modules/BehatMage_Catalog.xml -->
 <?xml version="1.0"?>
+<!-- app/etc/modules/BehatMage_Catalog.xml -->
 <config>
     <modules>
         <BehatMage_Catalog>
@@ -498,7 +500,6 @@ As you can see Behat is providing to the developer, thanks to the BehatMage exte
         </BehatMage_Catalog>
     </modules>
 </config>
-
 ```
 
 ```php
