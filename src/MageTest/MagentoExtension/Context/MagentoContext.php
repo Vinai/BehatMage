@@ -44,10 +44,29 @@ use Behat\MinkExtension\Context\RawMinkContext,
  */
 class MagentoContext extends RawMinkContext implements MagentoAwareInterface
 {
+    /**
+     * @var MageApp
+     */
     private $app;
+
+    /**
+     * @var ConfigManager
+     */
     private $configManager;
+
+    /**
+     * @var CacheManager
+     */
     private $cacheManager;
+
+    /**
+     * @var FixtureFactory
+     */
     private $factory;
+
+    /**
+     * @var Session
+     */
     private $sessionService;
 
     /**
