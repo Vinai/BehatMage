@@ -518,7 +518,7 @@ $installer->startSetup();
 
 $installer->addAttribute('catalog_product', 'accepts_reviews', array(
     'group' => 'General',
-    'input' => 'yesno',
+    'input' => 'boolean',
     'type' => 'int',
     'label' => 'Accept Reviews',
     'default' => true,
