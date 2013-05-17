@@ -144,6 +144,11 @@ class MagentoContext extends RawMinkContext implements MagentoAwareInterface
         $this->app = $app;
     }
 
+    public function getApp()
+    {
+        return $this->app;
+    }
+
     public function setConfigManager(ConfigManager $config)
     {
         $this->configManager = $config;
