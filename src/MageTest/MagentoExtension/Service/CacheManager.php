@@ -63,6 +63,7 @@ class CacheManager
         }
         foreach ($this->sections as $name => $service) {
             $service->clear();
+            $this->sections = array();
         }
     }
 
