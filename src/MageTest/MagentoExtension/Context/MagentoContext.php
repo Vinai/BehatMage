@@ -110,7 +110,7 @@ class MagentoContext extends RawMinkContext implements MagentoAwareInterface
      */
     public function iAmOn($uri)
     {
-        $this->getSession()->visit($uri);
+        $this->getSession()->visit($this->locatePath($uri));
     }
 
     /**
