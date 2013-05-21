@@ -159,6 +159,11 @@ class MagentoContext extends RawMinkContext implements MagentoAwareInterface
         $this->cacheManager = $cache;
     }
 
+    public function getCacheManager()
+    {
+        return $this->cacheManager;
+    }
+
     public function setFixtureFactory(FixtureFactory $factory)
     {
         $this->factory = $factory;
